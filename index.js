@@ -194,7 +194,7 @@ function createTree(options) {
         verifyPointsInvariant(points);
 
         var tempRoot = createRootNode(points);
-        var total = points.length/3;
+        var total = points.length / 3;
         var processed = 0;
 
         asyncFor(points, insertToRoot, doneInternal, {step: 3});
@@ -209,7 +209,7 @@ function createTree(options) {
         function reportProgress() {
             processed += 1;
 
-            if(processed % 10000 === 0) {
+            if (processed % 10000 === 0) {
                 progressCallback({
                     message: 'Loading ',
                     completed: Math.round((processed / total) * 100) + '%'

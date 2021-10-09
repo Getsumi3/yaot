@@ -5,7 +5,7 @@ var container, stats, particleArray;
 
 var camera, scene, renderer, mouse = {x: 0, y: 0};
 var raycaster = new THREE.Raycaster();
-raycaster.params.PointCloud.threshold = 10;
+raycaster.params.Points.threshold = 10;
 
 init();
 
@@ -61,12 +61,12 @@ function init() {
 
   geometry.computeBoundingSphere();
 
-  var material = new THREE.PointCloudMaterial({
+  var material = new THREE.PointsMaterial({
     size: 15,
     vertexColors: THREE.VertexColors
   });
 
-  particleSystem = new THREE.PointCloud(geometry, material);
+  particleSystem = new THREE.Points(geometry, material);
   scene.add(particleSystem);
   particleArray = [particleSystem];
 
