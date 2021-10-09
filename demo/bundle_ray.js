@@ -57,8 +57,8 @@ function init() {
 
   tree.initAsync(positions, listenToMouse);
 
-  geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
-  geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   geometry.computeBoundingSphere();
 
@@ -9095,11 +9095,11 @@ THREE.BufferGeometry.prototype = {
 
 	constructor: THREE.BufferGeometry,
 
-	addAttribute: function ( name, attribute ) {
+	setAttribute: function ( name, attribute ) {
 
 		if ( attribute instanceof THREE.BufferAttribute === false ) {
 
-			THREE.warn( 'THREE.BufferGeometry: .addAttribute() now expects ( name, attribute ).' );
+			THREE.warn( 'THREE.BufferGeometry: .setAttribute() now expects ( name, attribute ).' );
 
 			this.attributes[ name ] = { array: arguments[ 1 ], itemSize: arguments[ 2 ] };
 
@@ -9190,22 +9190,22 @@ THREE.BufferGeometry.prototype = {
 		var hasFaceVertexNormals = faces[ 0 ].vertexNormals.length == 3;
 
 		var positions = new Float32Array( faces.length * 3 * 3 );
-		this.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+		this.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
 
 		var normals = new Float32Array( faces.length * 3 * 3 );
-		this.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
+		this.setAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
 
 		if ( vertexColors !== THREE.NoColors ) {
 
 			var colors = new Float32Array( faces.length * 3 * 3 );
-			this.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+			this.setAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
 
 		}
 
 		if ( hasFaceVertexUv === true ) {
 
 			var uvs = new Float32Array( faces.length * 3 * 2 );
-			this.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+			this.setAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
 
 		}
 
@@ -9443,7 +9443,7 @@ THREE.BufferGeometry.prototype = {
 
 			if ( attributes.normal === undefined ) {
 
-				this.addAttribute( 'normal', new THREE.BufferAttribute( new Float32Array( positions.length ), 3 ) );
+				this.setAttribute( 'normal', new THREE.BufferAttribute( new Float32Array( positions.length ), 3 ) );
 
 			} else {
 
@@ -9576,7 +9576,7 @@ THREE.BufferGeometry.prototype = {
 
 		if ( this.attributes.tangent === undefined ) {
 
-			this.addAttribute( 'tangent', new THREE.BufferAttribute( new Float32Array( 4 * nVertices ), 4 ) );
+			this.setAttribute( 'tangent', new THREE.BufferAttribute( new Float32Array( 4 * nVertices ), 4 ) );
 
 		}
 
@@ -10001,7 +10001,7 @@ THREE.BufferGeometry.prototype = {
 		for ( var attr in this.attributes ) {
 
 			var sourceAttr = this.attributes[ attr ];
-			geometry.addAttribute( attr, sourceAttr.clone() );
+			geometry.setAttribute( attr, sourceAttr.clone() );
 
 		}
 
@@ -13097,7 +13097,7 @@ THREE.BufferGeometryLoader.prototype = {
 			var attribute = attributes[ key ];
 			var typedArray = new self[ attribute.type ]( attribute.array );
 
-			geometry.addAttribute( key, new THREE.BufferAttribute( typedArray, attribute.itemSize ) );
+			geometry.setAttribute( key, new THREE.BufferAttribute( typedArray, attribute.itemSize ) );
 
 		}
 
@@ -16947,9 +16947,9 @@ THREE.Sprite = ( function () {
 	var uvs = new Float32Array( [ 0, 0,   1, 0,   1, 1,   0, 1 ] );
 
 	var geometry = new THREE.BufferGeometry();
-	geometry.addAttribute( 'index', new THREE.BufferAttribute( indices, 1 ) );
-	geometry.addAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-	geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+	geometry.setAttribute( 'index', new THREE.BufferAttribute( indices, 1 ) );
+	geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+	geometry.setAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
 
 	return function ( material ) {
 
@@ -32650,10 +32650,10 @@ THREE.PlaneBufferGeometry = function ( width, height, widthSegments, heightSegme
 
 	}
 
-	this.addAttribute( 'index', new THREE.BufferAttribute( indices, 1 ) );
-	this.addAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-	this.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
-	this.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+	this.setAttribute( 'index', new THREE.BufferAttribute( indices, 1 ) );
+	this.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+	this.setAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
+	this.setAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
 
 };
 
@@ -33930,8 +33930,8 @@ THREE.AxisHelper = function ( size ) {
 	] );
 
 	var geometry = new THREE.BufferGeometry();
-	geometry.addAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-	geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+	geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+	geometry.setAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
 
 	var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
 
@@ -34060,7 +34060,7 @@ THREE.ArrowHelper.prototype.setColor = function ( color ) {
 THREE.BoxHelper = function ( object ) {
 
 	var geometry = new THREE.BufferGeometry();
-	geometry.addAttribute( 'position', new THREE.BufferAttribute( new Float32Array( 72 ), 3 ) );
+	geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( 72 ), 3 ) );
 
 	THREE.Line.call( this, geometry, new THREE.LineBasicMaterial( { color: 0xffff00 } ), THREE.LinePieces );
 
@@ -34559,7 +34559,7 @@ THREE.EdgesHelper = function ( object, hex, thresholdAngle ) {
 
 	}
 
-	geometry.addAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
+	geometry.setAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
 
 	THREE.Line.call( this, geometry, new THREE.LineBasicMaterial( { color: color } ), THREE.LinePieces );
 
@@ -35258,7 +35258,7 @@ THREE.WireframeHelper = function ( object, hex ) {
 
 		}
 
-		geometry.addAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
+		geometry.setAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
 
 	} else if ( object.geometry instanceof THREE.BufferGeometry ) {
 
@@ -35325,7 +35325,7 @@ THREE.WireframeHelper = function ( object, hex ) {
 
 			}
 
-			geometry.addAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
+			geometry.setAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
 
 		} else { // non-indexed BufferGeometry
 
@@ -35355,7 +35355,7 @@ THREE.WireframeHelper = function ( object, hex ) {
 
 			}
 
-			geometry.addAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
+			geometry.setAttribute( 'position', new THREE.BufferAttribute( coords, 3 ) );
 
 		}
 
