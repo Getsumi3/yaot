@@ -55,7 +55,7 @@
                 colors[i + 2] = color.b;
             }
 
-            tree.initAsync(positions, listenToMouse);
+            tree.initAsync(positions, reportBuildProgress, listenToMouse);
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
@@ -86,6 +86,10 @@
             container.appendChild(stats.domElement);
 
             window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function reportBuildProgress(progress) {
+            console.log(progress);
         }
 
         function listenToMouse() {
@@ -316,14 +320,31 @@
                 }
             }
 
-            function initAsync(points, doneCallback) {
+            function initAsync(points, progressCallback, doneCallback) {
                 verifyPointsInvariant(points);
 
                 var tempRoot = createRootNode(points);
+                var total = points.length / 3;
+                var processed = 0;
+
                 asyncFor(points, insertToRoot, doneInternal, { step: 3 });
 
                 function insertToRoot(element, i) {
                     tempRoot.insert(i, points, 0);
+                    if (typeof progressCallback === 'function') {
+                        reportProgress();
+                    }
+                }
+
+                function reportProgress() {
+                    processed += 1;
+
+                    if (processed % 10000 === 0) {
+                        progressCallback({
+                            message: 'Loading ',
+                            completed: Math.round((processed / total) * 100) + '%'
+                        });
+                    }
                 }
 
                 function doneInternal() {

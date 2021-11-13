@@ -182,7 +182,7 @@ function createTree(options) {
     }
 
     function init(points) {
-        verifyPointsInconstiant(points);
+        verifyPointsInvariant(points);
         originalArray = points;
         root = createRootNode(points);
         for (let i = 0; i < points.length; i += 3) {
@@ -191,7 +191,7 @@ function createTree(options) {
     }
 
     function initAsync(points, progressCallback, doneCallback) {
-        verifyPointsInconstiant(points);
+        verifyPointsInvariant(points);
 
         const tempRoot = createRootNode(points);
         const total = points.length / 3;
@@ -226,7 +226,7 @@ function createTree(options) {
         }
     }
 
-    function verifyPointsInconstiant(points) {
+    function verifyPointsInvariant(points) {
         if (!points) throw new Error('Points array is required for quadtree to work');
         if (typeof points.length !== 'number') throw new Error('Points should be array-like object');
         if (points.length % 3 !== 0) throw new Error('Points array should consist of series of x,y,z coordinates and be multiple of 3');

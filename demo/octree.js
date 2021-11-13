@@ -54,7 +54,7 @@ function init() {
         colors[i + 2] = color.b;
     }
 
-    tree.initAsync(positions, listenToMouse);
+    tree.initAsync(positions, reportBuildProgress, listenToMouse);
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
@@ -85,6 +85,10 @@ function init() {
     container.appendChild(stats.domElement);
 
     window.addEventListener('resize', onWindowResize, false);
+}
+
+function reportBuildProgress(progress) {
+    console.log(progress);
 }
 
 function listenToMouse() {
